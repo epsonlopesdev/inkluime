@@ -1,10 +1,16 @@
 import 'package:app/app/autenticacao/autenticacao_button_social.dart';
 import 'package:app/custom_widget/custom_raised_button.dart';
 import 'package:flutter/material.dart';
-
 import 'autenticacao_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AutenticacaoPage extends StatelessWidget {
+
+  void _autenticacaoAnonima() async {
+    final authResult = await FirebaseAuth.instance.signInAnonymously();
+    print('ID do Usuário: ${authResult.user.uid}');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +77,7 @@ class AutenticacaoPage extends StatelessWidget {
             text: 'Entrar em modo Anonimo',
             color: Colors.black87,
             textColor: Colors.white,
-            onPressed: () {},
+            onPressed: _autenticacaoAnonima,
           ),
         ],
       ),

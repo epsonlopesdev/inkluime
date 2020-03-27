@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "925389972241",
+    "firebase_url": "https://inklui-me.firebaseio.com",
+    "project_id": "inklui-me",
+    "storage_bucket": "inklui-me.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925389972241:android:83d12b0fd97e720a77e2b0",
+        "android_client_info": {
+          "package_name": "com.inkluime.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "925389972241-dcr74p4ha5f5h92vmt6pb434m5i9e0ff.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.inkluime.app",
+            "certificate_hash": "840c81ce3506d8b1333e00caf02d1b0f570ddc6f"
+          }
+        },
+        {
+          "client_id": "925389972241-9a525sk7k0gcg9ekts23relst31n586m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzKH_nqscXK0mkd7j3i0gAl40py3sW8Qc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "925389972241-9a525sk7k0gcg9ekts23relst31n586m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

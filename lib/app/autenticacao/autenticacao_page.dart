@@ -1,13 +1,21 @@
 import 'package:app/app/autenticacao/autenticacao_button_social.dart';
+import 'package:app/app/servicos/autorizacao.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class AutenticacaoPage extends StatelessWidget {
+  AutenticacaoPage({
+    @required this.autenticacao,
+    @required this.iniciaSessao,
+  });
+
+  final Function(Usuario) iniciaSessao;
+  final AutorizacaoBase autenticacao;
+
   Future<void> _autenticacaoAnonima() async {
     try {
-      final authResult = await FirebaseAuth.instance.signInAnonymously();
-      print('ID do Usuário: ${authResult.user.uid}');
-    } catch (e){
+      Usuario usuario = await autenticacao.autenticacaoAnonima();
+      iniciaSessao(usuario);
+    } catch (e) {
       print(e.toString());
     }
   }

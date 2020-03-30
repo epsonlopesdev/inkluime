@@ -8,6 +8,7 @@ class Usuario {
 }
 
 abstract class AutorizacaoBase {
+  Stream<Usuario> get autorizacaoAlterada;
   Future<Usuario> usuarioAtual();
   Future<Usuario> autenticacaoAnonima();
   Future<void> encerraSessao();
@@ -22,6 +23,11 @@ class Autorizacao implements AutorizacaoBase {
       return null;
     }
     return Usuario(uid: user.uid);
+  }
+
+  @override
+  Stream<Usuario> get autorizacaoAlterada {
+    return _firebaseAuth.onAuthStateChanged.map(_usuarioDoFirebase);
   }
 
   @override

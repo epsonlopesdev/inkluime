@@ -2,18 +2,13 @@ import 'package:app/app/servicos/autorizacao.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({
-    @required this.autenticacao,
-    @required this.encerraSessao,
-  });
+  HomePage({@required this.autenticacao});
 
-  final VoidCallback encerraSessao;
   final AutorizacaoBase autenticacao;
 
   Future<void> _encerraSessao() async {
     try {
       await autenticacao.encerraSessao();
-      encerraSessao();
     } catch (e) {
       print(e.toString());
     }

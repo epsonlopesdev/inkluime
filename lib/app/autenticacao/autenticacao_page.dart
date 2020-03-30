@@ -4,17 +4,14 @@ import 'package:flutter/material.dart';
 
 class AutenticacaoPage extends StatelessWidget {
   AutenticacaoPage({
-    @required this.autenticacao,
-    @required this.iniciaSessao,
+    @required this.autenticacao
   });
 
-  final Function(Usuario) iniciaSessao;
   final AutorizacaoBase autenticacao;
 
   Future<void> _autenticacaoAnonima() async {
     try {
-      Usuario usuario = await autenticacao.autenticacaoAnonima();
-      iniciaSessao(usuario);
+     await autenticacao.autenticacaoAnonima();
     } catch (e) {
       print(e.toString());
     }

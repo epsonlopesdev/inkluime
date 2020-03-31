@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Inklui.me</string>
+    <string name="facebook_app_id">277505863240155</string>
+    <string name="fb_login_protocol_scheme">fb277505863240155</string>
+</resources>

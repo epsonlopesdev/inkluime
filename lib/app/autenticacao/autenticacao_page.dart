@@ -17,6 +17,22 @@ class AutenticacaoPage extends StatelessWidget {
     }
   }
 
+  Future<void> _autencicacaoComContaDoGoogle() async {
+    try {
+      await autenticacao.autencicacaoComContaDoGoogle();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> _autencicacaoComContaDoFacebook() async {
+    try {
+      await autenticacao.autencicacaoComContaDoFacebook();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +68,7 @@ class AutenticacaoPage extends StatelessWidget {
             text: 'Entrar com uma conta do Google',
             color: Colors.white,
             textColor: Colors.black87,
-            onPressed: () {},
+            onPressed: _autencicacaoComContaDoGoogle,
           ),
           SizedBox(
             height: 25.0,
@@ -62,7 +78,7 @@ class AutenticacaoPage extends StatelessWidget {
             text: 'Entrar com uma conta do Facebook',
             color: Color(0xFF334D92),
             textColor: Colors.white,
-            onPressed: () {},
+            onPressed: _autencicacaoComContaDoFacebook,
           ),
           SizedBox(
             height: 25.0,

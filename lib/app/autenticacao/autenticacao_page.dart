@@ -1,4 +1,5 @@
 import 'package:app/app/autenticacao/autenticacao_button_social.dart';
+import 'package:app/app/autenticacao/autenticacao_com_email_e_senha_page.dart';
 import 'package:app/app/servicos/autorizacao.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +34,15 @@ class AutenticacaoPage extends StatelessWidget {
     }
   }
 
+  void _autenticacaoComEmailESenha(BuildContext context){
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+          fullscreenDialog: true,
+        builder: (context) => AutenticacaoComEmailESenhaPage(autorizacao: autenticacao),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,12 +50,12 @@ class AutenticacaoPage extends StatelessWidget {
         title: Text('Inklui.me'),
         elevation: 2.0,
       ),
-      body: _conteudo(),
+      body: _conteudo(context),
       backgroundColor: Colors.grey[300],
     );
   }
 
-  Widget _conteudo() {
+  Widget _conteudo(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(16.0),
       child: Column(
@@ -88,7 +98,7 @@ class AutenticacaoPage extends StatelessWidget {
             text: 'Entrar com E-mail e Senha',
             color: Colors.blueGrey,
             textColor: Colors.white,
-            onPressed: () {},
+            onPressed: () => _autenticacaoComEmailESenha(context),
           ),
           SizedBox(
             height: 25.0,

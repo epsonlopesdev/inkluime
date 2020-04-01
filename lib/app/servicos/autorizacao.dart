@@ -15,6 +15,8 @@ abstract class AutorizacaoBase {
   Future<Usuario> autenticacaoAnonima();
   Future<Usuario> autencicacaoComContaDoGoogle();
   Future<Usuario> autencicacaoComContaDoFacebook();
+  Future<Usuario> autenticacaoComEmailESenha(String email, String senha);
+  Future<Usuario> registroComEmailESenha(String email, String senha);
   Future<void> encerraSessao();
 }
 
@@ -93,6 +95,20 @@ class Autorizacao implements AutorizacaoBase {
         message: 'Autenticação cancelada pelo usuário.',
       );
     }
+  }
+
+  @override
+  Future<Usuario> autenticacaoComEmailESenha(String email, String senha) async {
+    final authResult = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: senha);
+    return _usuarioDoFirebase(authResult.user);
+  }
+
+  @override
+  Future<Usuario> registroComEmailESenha(String email, String senha) async {
+    final authResult = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email, password: senha);
+    return _usuarioDoFirebase(authResult.user);
   }
 
   @override

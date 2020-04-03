@@ -14,7 +14,6 @@ class Inkluime extends StatelessWidget {
     return Provider<AutorizacaoBase>(
       builder: (context) => Autorizacao(),
       child: MaterialApp(
-        title: 'Inlui.me',
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
         ),

@@ -45,7 +45,10 @@ class AutenticacaoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Inklui.me'),
+        title: Image.asset(
+          'lib/assets/imagem/inkluime-logo.png',
+          height: 40.0,
+        ),
         elevation: 2.0,
       ),
       body: _conteudo(context),
@@ -60,13 +63,9 @@ class AutenticacaoPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text(
-            'Entrar',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 32.0,
-              fontWeight: FontWeight.w600,
-            ),
+          Image.asset(
+            'lib/assets/imagem/badge-auth.png',
+            height: 150.0,
           ),
           SizedBox(
             height: 50.0,
@@ -112,6 +111,13 @@ class AutenticacaoPage extends StatelessWidget {
           SizedBox(
             height: 25.0,
           ),
+          Image.asset(
+            'lib/assets/imagem/anonymous-icon.png',
+            height: 100.0,
+          ),
+          SizedBox(
+            height: 25.0,
+          ),
           AutenticacaoButtonSocial(
             icone: 'lib/assets/imagem/spy.png',
             text: 'Entrar em modo Anonimo',
@@ -119,6 +125,7 @@ class AutenticacaoPage extends StatelessWidget {
             textColor: Colors.white,
             onPressed: () => _autenticacaoAnonima(context),
           ),
+
         ],
       ),
     );

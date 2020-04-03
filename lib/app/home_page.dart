@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-
   Future<void> _encerraSessao(BuildContext context) async {
     try {
       final autenticacao = Provider.of<AutorizacaoBase>(context);
@@ -30,7 +29,14 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pagina Inicial'),
+        leading: Padding(
+          padding: EdgeInsets.only(left: 16),
+          child: Image.asset(
+            'lib/assets/imagem/inkluime-logo-only.png',
+            height: 40.0,
+          ),
+        ),
+        title: Text('Seja bem vindo!'),
         actions: <Widget>[
           FlatButton(
             child: Text('Sair',

@@ -52,9 +52,13 @@ flutter:
     - lib/assets/imagem/facebook-logo.png
     - lib/assets/imagem/google-logo.png
     - lib/assets/imagem/inkluime-logo.png
+    - lib/assets/imagem/inkluime-logo-only.png
     - lib/assets/imagem/email-send.png
     - lib/assets/imagem/email.png
     - lib/assets/imagem/spy.png
+    - lib/assets/imagem/auth-illo_1x.png
+    - lib/assets/imagem/badge-auth.png
+    - lib/assets/imagem/anonymous-icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

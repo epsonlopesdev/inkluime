@@ -1,10 +1,7 @@
-import 'package:app/app/servicos/autorizacao.dart';
 import 'package:flutter/material.dart';
 import 'email_e_senha_form.dart';
 
 class AutenticacaoComEmailESenhaPage extends StatelessWidget {
-  AutenticacaoComEmailESenhaPage({@required this.autorizacao});
-  final AutorizacaoBase autorizacao;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +13,7 @@ class AutenticacaoComEmailESenhaPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Card(
-            child: EmailESenhaForm(autorizacao: autorizacao,),
+            child: EmailESenhaForm(),
           ),
         ),
       ),

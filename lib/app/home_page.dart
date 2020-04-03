@@ -1,14 +1,12 @@
-import 'package:app/app/servicos/autorizacao.dart';
+import 'package:app/app/servicos/autorizacao_provider.dart';
 import 'package:app/custom_widget/platform_alert_dialog.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({@required this.autenticacao});
 
-  final AutorizacaoBase autenticacao;
-
-  Future<void> _encerraSessao() async {
+  Future<void> _encerraSessao(BuildContext context) async {
     try {
+      final autenticacao = AutorizacaoProvider.of(context);
       await autenticacao.encerraSessao();
     } catch (e) {
       print(e.toString());
@@ -23,7 +21,7 @@ class HomePage extends StatelessWidget {
       defaultActionText: 'Sim',
     ).show(context);
     if (encerramentoDaSessao == true) {
-      _encerraSessao();
+      _encerraSessao(context);
     }
   }
 

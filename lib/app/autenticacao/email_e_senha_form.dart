@@ -1,5 +1,5 @@
 import 'package:app/app/seguranca/valida_campo.dart';
-import 'package:app/app/servicos/autorizacao.dart';
+import 'package:app/app/servicos/autorizacao_provider.dart';
 import 'package:app/custom_widget/custom_submit_button.dart';
 import 'package:app/custom_widget/platform_alert_dialog.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 enum TipoDoFormulario { autenticacao, registro }
 
 class EmailESenhaForm extends StatefulWidget with ValidaEmailESenha {
-  EmailESenhaForm({@required this.autorizacao});
-  final AutorizacaoBase autorizacao;
   @override
   _EmailESenhaFormState createState() => _EmailESenhaFormState();
 }
@@ -31,10 +29,11 @@ class _EmailESenhaFormState extends State<EmailESenhaForm> {
       _carregando = true;
     });
     try {
+      final autorizacao = AutorizacaoProvider.of(context);
       if (_tipoDoFormulario == TipoDoFormulario.autenticacao) {
-        await widget.autorizacao.autenticacaoComEmailESenha(_email, _senha);
+        await autorizacao.autenticacaoComEmailESenha(_email, _senha);
       } else {
-        await widget.autorizacao.registroComEmailESenha(_email, _senha);
+        await autorizacao.registroComEmailESenha(_email, _senha);
       }
       Navigator.of(context).pop();
     } catch (e) {

@@ -1,33 +1,30 @@
 import 'package:app/app/autenticacao/autenticacao_button_social.dart';
 import 'package:app/app/autenticacao/autenticacao_com_email_e_senha_page.dart';
-import 'package:app/app/servicos/autorizacao.dart';
+import 'package:app/app/servicos/autorizacao_provider.dart';
 import 'package:flutter/material.dart';
 
 class AutenticacaoPage extends StatelessWidget {
-  AutenticacaoPage({
-    @required this.autenticacao
-  });
 
-  final AutorizacaoBase autenticacao;
-
-  Future<void> _autenticacaoAnonima() async {
-    try {
+  Future<void> _autenticacaoAnonima(BuildContext context) async {
+    try {final autenticacao = AutorizacaoProvider.of(context);
      await autenticacao.autenticacaoAnonima();
     } catch (e) {
       print(e.toString());
     }
   }
 
-  Future<void> _autencicacaoComContaDoGoogle() async {
+  Future<void> _autencicacaoComContaDoGoogle(BuildContext context) async {
     try {
+      final autenticacao = AutorizacaoProvider.of(context);
       await autenticacao.autencicacaoComContaDoGoogle();
     } catch (e) {
       print(e.toString());
     }
   }
 
-  Future<void> _autencicacaoComContaDoFacebook() async {
+  Future<void> _autencicacaoComContaDoFacebook(BuildContext context) async {
     try {
+      final autenticacao = AutorizacaoProvider.of(context);
       await autenticacao.autencicacaoComContaDoFacebook();
     } catch (e) {
       print(e.toString());
@@ -38,7 +35,7 @@ class AutenticacaoPage extends StatelessWidget {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
           fullscreenDialog: true,
-        builder: (context) => AutenticacaoComEmailESenhaPage(autorizacao: autenticacao),
+        builder: (context) => AutenticacaoComEmailESenhaPage(),
       ),
     );
   }
@@ -78,7 +75,7 @@ class AutenticacaoPage extends StatelessWidget {
             text: 'Entrar com uma conta do Google',
             color: Colors.white,
             textColor: Colors.black87,
-            onPressed: _autencicacaoComContaDoGoogle,
+            onPressed: () => _autencicacaoComContaDoGoogle(context),
           ),
           SizedBox(
             height: 25.0,
@@ -88,7 +85,7 @@ class AutenticacaoPage extends StatelessWidget {
             text: 'Entrar com uma conta do Facebook',
             color: Color(0xFF334D92),
             textColor: Colors.white,
-            onPressed: _autencicacaoComContaDoFacebook,
+            onPressed: () => _autencicacaoComContaDoFacebook(context),
           ),
           SizedBox(
             height: 25.0,
@@ -119,7 +116,7 @@ class AutenticacaoPage extends StatelessWidget {
             text: 'Entrar em modo Anonimo',
             color: Colors.black87,
             textColor: Colors.white,
-            onPressed: _autenticacaoAnonima,
+            onPressed: () => _autenticacaoAnonima(context),
           ),
         ],
       ),

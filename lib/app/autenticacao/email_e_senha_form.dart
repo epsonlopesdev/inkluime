@@ -1,7 +1,7 @@
 import 'package:app/app/seguranca/valida_campo.dart';
 import 'package:app/app/servicos/autorizacao.dart';
 import 'package:app/custom_widget/custom_submit_button.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:app/custom_widget/platform_alert_dialog.dart';
 import 'package:flutter/material.dart';
 
 enum TipoDoFormulario { autenticacao, registro }
@@ -38,7 +38,12 @@ class _EmailESenhaFormState extends State<EmailESenhaForm> {
       }
       Navigator.of(context).pop();
     } catch (e) {
-      print(e.toString());
+      PlatformAlertDialog(
+        title: 'Ops! Algo deu errado... :(',
+        content: e.toString(),
+        defaultActionText: 'Fechar',
+      ).show(context);
+      //print(e.toString());
     } finally {
       setState(() {
         _carregando = false;
@@ -47,7 +52,8 @@ class _EmailESenhaFormState extends State<EmailESenhaForm> {
   }
 
   void _emailPreenchido() {
-    final foco = widget.validaEmail.ehValido(_email) ? _senhaFocada : _emailFocado;
+    final foco =
+        widget.validaEmail.ehValido(_email) ? _senhaFocada : _emailFocado;
     FocusScope.of(context).requestFocus(foco);
   }
 

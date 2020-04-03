@@ -1,7 +1,8 @@
 import 'package:app/app/seguranca/valida_usuario_page.dart';
 import 'package:app/app/servicos/autorizacao.dart';
-import 'package:app/app/servicos/autorizacao_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 
 void main() {
   runApp(Inkluime());
@@ -10,8 +11,8 @@ void main() {
 class Inkluime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return AutorizacaoProvider(
-      autorizacao: Autorizacao(),
+    return Provider<AutorizacaoBase>(
+      builder: (context) => Autorizacao(),
       child: MaterialApp(
         title: 'Inlui.me',
         theme: ThemeData(

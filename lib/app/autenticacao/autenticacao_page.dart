@@ -1,13 +1,14 @@
 import 'package:app/app/autenticacao/autenticacao_button_social.dart';
 import 'package:app/app/autenticacao/autenticacao_com_email_e_senha_page.dart';
-import 'package:app/app/servicos/autorizacao_provider.dart';
+import 'package:app/app/servicos/autorizacao.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AutenticacaoPage extends StatelessWidget {
-
   Future<void> _autenticacaoAnonima(BuildContext context) async {
-    try {final autenticacao = AutorizacaoProvider.of(context);
-     await autenticacao.autenticacaoAnonima();
+    try {
+      final autenticacao = Provider.of<AutorizacaoBase>(context);
+      await autenticacao.autenticacaoAnonima();
     } catch (e) {
       print(e.toString());
     }
@@ -15,7 +16,7 @@ class AutenticacaoPage extends StatelessWidget {
 
   Future<void> _autencicacaoComContaDoGoogle(BuildContext context) async {
     try {
-      final autenticacao = AutorizacaoProvider.of(context);
+      final autenticacao = Provider.of<AutorizacaoBase>(context);
       await autenticacao.autencicacaoComContaDoGoogle();
     } catch (e) {
       print(e.toString());
@@ -24,17 +25,17 @@ class AutenticacaoPage extends StatelessWidget {
 
   Future<void> _autencicacaoComContaDoFacebook(BuildContext context) async {
     try {
-      final autenticacao = AutorizacaoProvider.of(context);
+      final autenticacao = Provider.of<AutorizacaoBase>(context);
       await autenticacao.autencicacaoComContaDoFacebook();
     } catch (e) {
       print(e.toString());
     }
   }
 
-  void _autenticacaoComEmailESenha(BuildContext context){
+  void _autenticacaoComEmailESenha(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-          fullscreenDialog: true,
+        fullscreenDialog: true,
         builder: (context) => AutenticacaoComEmailESenhaPage(),
       ),
     );

@@ -1,12 +1,13 @@
-import 'package:app/app/servicos/autorizacao_provider.dart';
+import 'package:app/app/servicos/autorizacao.dart';
 import 'package:app/custom_widget/platform_alert_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
 
   Future<void> _encerraSessao(BuildContext context) async {
     try {
-      final autenticacao = AutorizacaoProvider.of(context);
+      final autenticacao = Provider.of<AutorizacaoBase>(context);
       await autenticacao.encerraSessao();
     } catch (e) {
       print(e.toString());

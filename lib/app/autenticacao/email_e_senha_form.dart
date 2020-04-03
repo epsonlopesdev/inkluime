@@ -1,8 +1,9 @@
 import 'package:app/app/seguranca/valida_campo.dart';
-import 'package:app/app/servicos/autorizacao_provider.dart';
+import 'package:app/app/servicos/autorizacao.dart';
 import 'package:app/custom_widget/custom_submit_button.dart';
 import 'package:app/custom_widget/platform_alert_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 enum TipoDoFormulario { autenticacao, registro }
 
@@ -29,7 +30,7 @@ class _EmailESenhaFormState extends State<EmailESenhaForm> {
       _carregando = true;
     });
     try {
-      final autorizacao = AutorizacaoProvider.of(context);
+      final autorizacao = Provider.of<AutorizacaoBase>(context);
       if (_tipoDoFormulario == TipoDoFormulario.autenticacao) {
         await autorizacao.autenticacaoComEmailESenha(_email, _senha);
       } else {

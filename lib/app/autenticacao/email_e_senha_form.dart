@@ -2,7 +2,9 @@ import 'package:app/app/seguranca/valida_campo.dart';
 import 'package:app/app/servicos/autorizacao.dart';
 import 'package:app/custom_widget/custom_submit_button.dart';
 import 'package:app/custom_widget/platform_alert_dialog.dart';
+import 'package:app/custom_widget/platform_exception_alert_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 enum TipoDoFormulario { autenticacao, registro }
@@ -24,6 +26,15 @@ class _EmailESenhaFormState extends State<EmailESenhaForm> {
   bool _dadosEnviados = false;
   bool _carregando = false;
 
+  @override
+  void dispose(){
+    _emailController.dispose();
+    _senhaController.dispose();
+    _emailFocado.dispose();
+    _senhaFocada.dispose();
+    super.dispose();
+  }
+
   void _entrar() async {
     setState(() {
       _dadosEnviados = true;
@@ -37,11 +48,10 @@ class _EmailESenhaFormState extends State<EmailESenhaForm> {
         await autorizacao.registroComEmailESenha(_email, _senha);
       }
       Navigator.of(context).pop();
-    } catch (e) {
-      PlatformAlertDialog(
+    } on PlatformException catch (e) {
+      PlatformExceptionAlertDialog(
         title: 'Ops! Algo deu errado... :(',
-        content: e.toString(),
-        defaultActionText: 'Fechar',
+        exception: e,
       ).show(context);
       //print(e.toString());
     } finally {

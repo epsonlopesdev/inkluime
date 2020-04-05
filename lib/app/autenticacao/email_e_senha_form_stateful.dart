@@ -1,20 +1,19 @@
 import 'package:app/app/seguranca/valida_campo.dart';
 import 'package:app/app/servicos/autorizacao.dart';
 import 'package:app/custom_widget/custom_submit_button.dart';
-import 'package:app/custom_widget/platform_alert_dialog.dart';
 import 'package:app/custom_widget/platform_exception_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-enum TipoDoFormulario { autenticacao, registro }
+import 'autenticacao_com_email_e_senha_model.dart';
 
-class EmailESenhaForm extends StatefulWidget with ValidaEmailESenha {
+class EmailESenhaFormStateful extends StatefulWidget with ValidaEmailESenha {
   @override
-  _EmailESenhaFormState createState() => _EmailESenhaFormState();
+  _EmailESenhaFormStatefulState createState() => _EmailESenhaFormStatefulState();
 }
 
-class _EmailESenhaFormState extends State<EmailESenhaForm> {
+class _EmailESenhaFormStatefulState extends State<EmailESenhaFormStateful> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
   final FocusNode _emailFocado = FocusNode();
@@ -35,7 +34,7 @@ class _EmailESenhaFormState extends State<EmailESenhaForm> {
     super.dispose();
   }
 
-  void _entrar() async {
+  Future<void> _entrar() async {
     setState(() {
       _dadosEnviados = true;
       _carregando = true;

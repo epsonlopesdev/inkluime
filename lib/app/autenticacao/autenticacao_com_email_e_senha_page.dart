@@ -1,5 +1,5 @@
+import 'package:app/app/autenticacao/autenticacao_com_email_e_senha_base.dart';
 import 'package:flutter/material.dart';
-import 'email_e_senha_form.dart';
 
 class AutenticacaoComEmailESenhaPage extends StatelessWidget {
   @override
@@ -13,7 +13,7 @@ class AutenticacaoComEmailESenhaPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Card(
-            child: EmailESenhaForm(),
+            child: EmailESenhaFormBlocBase.create(context),
           ),
         ),
       ),

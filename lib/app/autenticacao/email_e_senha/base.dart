@@ -1,0 +1,145 @@
+import 'package:app/app/autenticacao/email_e_senha/bloc.dart';
+import 'package:app/app/servicos/autorizacao.dart';
+import 'package:app/custom_widget/submit_button.dart';
+import 'package:app/custom_widget/platform_exception_alert_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+
+import 'model.dart';
+
+class EmailESenhaFormBlocBase extends StatefulWidget {
+  EmailESenhaFormBlocBase({@required this.bloc});
+  final ComEmailESenhaBloc bloc;
+
+  static Widget create(BuildContext context) {
+    final AutorizacaoBase autorizacao = Provider.of<AutorizacaoBase>(context);
+    return Provider<ComEmailESenhaBloc>(
+      builder: (context) => ComEmailESenhaBloc(autorizacao: autorizacao),
+      child: Consumer<ComEmailESenhaBloc>(
+        builder: (context, bloc, _) => EmailESenhaFormBlocBase(bloc: bloc),
+      ),
+      dispose: (context, bloc) => bloc.dispose(),
+    );
+  }
+
+  @override
+  _EmailESenhaFormBlocBaseState createState() => _EmailESenhaFormBlocBaseState();
+}
+
+class _EmailESenhaFormBlocBaseState extends State<EmailESenhaFormBlocBase> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _senhaController = TextEditingController();
+  final FocusNode _emailFocado = FocusNode();
+  final FocusNode _senhaFocada = FocusNode();
+
+  @override
+  void dispose(){
+    _emailController.dispose();
+    _senhaController.dispose();
+    _emailFocado.dispose();
+    _senhaFocada.dispose();
+    super.dispose();
+  }
+
+  Future<void> _entrar() async {
+    try {
+      await widget.bloc.entrar();
+      Navigator.of(context).pop();
+    } on PlatformException catch (e) {
+      PlatformExceptionAlertDialog(
+        title: 'Ops! Algo deu errado... :(',
+        exception: e,
+      ).show(context);
+    }
+  }
+
+  void _emailPreenchido(EmailESennhaModel model) {
+    final foco =
+    model.validaEmail.ehValido(model.email) ? _senhaFocada : _emailFocado;
+    FocusScope.of(context).requestFocus(foco);
+  }
+
+  void _alterarTipoDoFormulario() {
+    widget.bloc.alteraTipoDoFormulario();
+    _emailController.clear();
+    _senhaController.clear();
+  }
+
+  List<Widget> _buildChildren(EmailESennhaModel model) {
+    return [
+      _buildCampoEmail(model),
+      SizedBox(
+        height: 20.0,
+      ),
+      _buildCampoSenha(model),
+      SizedBox(
+        height: 20.0,
+      ),
+      CustomSubmitButtom(
+        text: model.paraEntrar,
+        onPressed: model.enviarDados ? _entrar : null,
+      ),
+      SizedBox(
+        height: 10.0,
+      ),
+      FlatButton(
+        child: Text(model.paraRegistrar),
+        onPressed: !model.carregando ? _alterarTipoDoFormulario : null,
+      ),
+    ];
+  }
+
+  TextField _buildCampoEmail(EmailESennhaModel model) {
+    return TextField(
+      controller: _emailController,
+      focusNode: _emailFocado,
+      decoration: InputDecoration(
+        labelText: 'E-mail',
+        hintText: 'email@dominio.com',
+        errorText: model.trataCampoEmail,
+        enabled: model.carregando == false,
+      ),
+      autocorrect: false,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+      onChanged: widget.bloc.autalizaEmail,
+      onEditingComplete: () => _emailPreenchido(model),
+    );
+  }
+
+  TextField _buildCampoSenha(EmailESennhaModel model) {
+    return TextField(
+      controller: _senhaController,
+      focusNode: _senhaFocada,
+      decoration: InputDecoration(
+        labelText: 'Senha',
+        errorText: model.trataCampoSenha,
+        enabled: model.carregando == false,
+      ),
+      obscureText: true,
+      textInputAction: TextInputAction.done,
+      onChanged: widget.bloc.autalizaSenha,
+      onEditingComplete: _entrar,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<EmailESennhaModel>(
+      stream: widget.bloc.modelStream,
+      initialData: EmailESennhaModel(),
+      builder: (context, snapshot) {
+        final EmailESennhaModel model = snapshot.data;
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: _buildChildren(model),
+          ),
+        );
+      }
+    );
+  }
+}

@@ -1,30 +1,21 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:app/app/servicos/autorizacao.dart';
 
-class AutenticacaoBloc {
-  AutenticacaoBloc({@required this.autorizacao});
-
+class Manager {
+  Manager({@required this.autorizacao, @required this.carregando});
   final AutorizacaoBase autorizacao;
-  final StreamController<bool> _carregandoController = StreamController<bool>();
-  Stream get carregandoStream => _carregandoController.stream;
-
-  void dispose() {
-    _carregandoController.close();
-  }
-
-  void _setCarregando(bool carregando) => _carregandoController.add(carregando);
+  final ValueNotifier<bool> carregando;
 
   Future<Usuario> _autenticacao(
       Future<Usuario> Function() tipoDeAutenticacao) async {
     try {
-      _setCarregando(true);
+      carregando.value = true;
       return await tipoDeAutenticacao();
     } catch (e) {
       rethrow;
     } finally {
-      _setCarregando(false);
+      carregando.value = false;
     }
   }
 

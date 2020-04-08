@@ -1,40 +1,42 @@
-import 'package:app/app/autenticacao/autenticacao_com_email_e_senha_bloc.dart';
+import 'package:app/app/autenticacao/email_e_senha/bloc.dart';
 import 'package:app/app/servicos/autorizacao.dart';
-import 'package:app/custom_widget/custom_submit_button.dart';
+import 'package:app/custom_widget/submit_button.dart';
 import 'package:app/custom_widget/platform_exception_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'model.dart';
+import 'notifier_model.dart';
 
-import 'autenticacao_com_email_e_senha_model.dart';
-
-class EmailESenhaFormBlocBase extends StatefulWidget {
-  EmailESenhaFormBlocBase({@required this.bloc});
-  final AutenticacaoComEmailESenhaBloc bloc;
+class EmailESenhaFormNotifier extends StatefulWidget {
+  EmailESenhaFormNotifier({@required this.model});
+  final EmailESennhaNotifierModel model;
 
   static Widget create(BuildContext context) {
     final AutorizacaoBase autorizacao = Provider.of<AutorizacaoBase>(context);
-    return Provider<AutenticacaoComEmailESenhaBloc>(
-      builder: (context) => AutenticacaoComEmailESenhaBloc(autorizacao: autorizacao),
-      child: Consumer<AutenticacaoComEmailESenhaBloc>(
-        builder: (context, bloc, _) => EmailESenhaFormBlocBase(bloc: bloc),
+    return ChangeNotifierProvider<EmailESennhaNotifierModel>(
+      builder: (context) => EmailESennhaNotifierModel(autorizacao: autorizacao),
+      child: Consumer<EmailESennhaNotifierModel>(
+        builder: (context, model, _) => EmailESenhaFormNotifier(model: model),
       ),
-      dispose: (context, bloc) => bloc.dispose(),
     );
   }
 
   @override
-  _EmailESenhaFormBlocBaseState createState() => _EmailESenhaFormBlocBaseState();
+  _EmailESenhaFormNotifierState createState() =>
+      _EmailESenhaFormNotifierState();
 }
 
-class _EmailESenhaFormBlocBaseState extends State<EmailESenhaFormBlocBase> {
+class _EmailESenhaFormNotifierState extends State<EmailESenhaFormNotifier> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
   final FocusNode _emailFocado = FocusNode();
   final FocusNode _senhaFocada = FocusNode();
 
+  EmailESennhaNotifierModel get model => widget.model;
+
   @override
-  void dispose(){
+  void dispose() {
     _emailController.dispose();
     _senhaController.dispose();
     _emailFocado.dispose();
@@ -44,7 +46,7 @@ class _EmailESenhaFormBlocBaseState extends State<EmailESenhaFormBlocBase> {
 
   Future<void> _entrar() async {
     try {
-      await widget.bloc.entrar();
+      await model.entrar();
       Navigator.of(context).pop();
     } on PlatformException catch (e) {
       PlatformExceptionAlertDialog(
@@ -54,25 +56,25 @@ class _EmailESenhaFormBlocBaseState extends State<EmailESenhaFormBlocBase> {
     }
   }
 
-  void _emailPreenchido(EmailESennhaModel model) {
+  void _emailPreenchido() {
     final foco =
-    model.validaEmail.ehValido(model.email) ? _senhaFocada : _emailFocado;
+        model.validaEmail.ehValido(model.email) ? _senhaFocada : _emailFocado;
     FocusScope.of(context).requestFocus(foco);
   }
 
   void _alterarTipoDoFormulario() {
-    widget.bloc.alteraTipoDoFormulario();
+    model.alteraTipoDoFormulario();
     _emailController.clear();
     _senhaController.clear();
   }
 
-  List<Widget> _buildChildren(EmailESennhaModel model) {
+  List<Widget> _buildChildren() {
     return [
-      _buildCampoEmail(model),
+      _buildCampoEmail(),
       SizedBox(
         height: 20.0,
       ),
-      _buildCampoSenha(model),
+      _buildCampoSenha(),
       SizedBox(
         height: 20.0,
       ),
@@ -90,7 +92,7 @@ class _EmailESenhaFormBlocBaseState extends State<EmailESenhaFormBlocBase> {
     ];
   }
 
-  TextField _buildCampoEmail(EmailESennhaModel model) {
+  TextField _buildCampoEmail() {
     return TextField(
       controller: _emailController,
       focusNode: _emailFocado,
@@ -103,12 +105,12 @@ class _EmailESenhaFormBlocBaseState extends State<EmailESenhaFormBlocBase> {
       autocorrect: false,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      onChanged: widget.bloc.autalizaEmail,
-      onEditingComplete: () => _emailPreenchido(model),
+      onChanged: model.autalizaEmail,
+      onEditingComplete: () => _emailPreenchido(),
     );
   }
 
-  TextField _buildCampoSenha(EmailESennhaModel model) {
+  TextField _buildCampoSenha() {
     return TextField(
       controller: _senhaController,
       focusNode: _senhaFocada,
@@ -119,27 +121,20 @@ class _EmailESenhaFormBlocBaseState extends State<EmailESenhaFormBlocBase> {
       ),
       obscureText: true,
       textInputAction: TextInputAction.done,
-      onChanged: widget.bloc.autalizaSenha,
+      onChanged: model.autalizaSenha,
       onEditingComplete: _entrar,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<EmailESennhaModel>(
-      stream: widget.bloc.modelStream,
-      initialData: EmailESennhaModel(),
-      builder: (context, snapshot) {
-        final EmailESennhaModel model = snapshot.data;
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: _buildChildren(model),
-          ),
-        );
-      }
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: _buildChildren(),
+      ),
     );
   }
 }

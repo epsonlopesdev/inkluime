@@ -1,12 +1,12 @@
 import 'package:app/app/seguranca/valida_campo.dart';
 import 'package:app/app/servicos/autorizacao.dart';
-import 'package:app/custom_widget/custom_submit_button.dart';
+import 'package:app/custom_widget/submit_button.dart';
 import 'package:app/custom_widget/platform_exception_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import 'autenticacao_com_email_e_senha_model.dart';
+import 'model.dart';
 
 class EmailESenhaFormStateful extends StatefulWidget with ValidaEmailESenha {
   @override

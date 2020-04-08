@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:app/app/autenticacao/autenticacao_com_email_e_senha_model.dart';
+import 'package:app/app/autenticacao/email_e_senha/model.dart';
 import 'package:app/app/servicos/autorizacao.dart';
 import 'package:flutter/foundation.dart';
 
-class AutenticacaoComEmailESenhaBloc {
-  AutenticacaoComEmailESenhaBloc({@required this.autorizacao});
+class ComEmailESenhaBloc {
+  ComEmailESenhaBloc({@required this.autorizacao});
   final StreamController<EmailESennhaModel> _modelController =
       StreamController<EmailESennhaModel>();
 

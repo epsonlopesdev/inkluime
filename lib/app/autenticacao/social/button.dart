@@ -1,8 +1,8 @@
-import 'package:app/custom_widget/custom_raised_button.dart';
+import 'package:app/custom_widget/raised_button.dart';
 import 'package:flutter/material.dart';
 
-class AutenticacaoButtonSocial extends CustomRaisedButton {
-  AutenticacaoButtonSocial({
+class ButtonSocial extends CustomRaisedButton {
+  ButtonSocial({
     @required String icone,
     @required String text,
     Color color,

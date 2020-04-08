@@ -1,5 +1,5 @@
-import 'package:app/app/autenticacao/autenticacao_page.dart';
-import 'package:app/app/home_page.dart';
+import 'package:app/app/autenticacao/page.dart';
+import 'package:app/app/home/page.dart';
 import 'package:app/app/servicos/autorizacao.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +14,7 @@ class ValidaUsuario extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.active) {
             Usuario usuario = snapshot.data;
             if (usuario == null) {
-              return AutenticacaoPage.create(context);
+              return Page.create(context);
             }
             return HomePage();
           } else {

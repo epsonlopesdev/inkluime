@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 class Usuario {
   Usuario({@required this.uid});
   final String uid;
+  //TODO: Aterar a contante uid para usuarioID.
 }
 
 abstract class AutorizacaoBase {

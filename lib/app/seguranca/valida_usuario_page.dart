@@ -1,6 +1,7 @@
+import 'package:app/app/administracao/estado/page.dart';
 import 'package:app/app/autenticacao/page.dart';
-import 'package:app/app/home/page.dart';
 import 'package:app/app/servicos/autorizacao.dart';
+import 'package:app/app/servicos/banco_de_dados.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,11 @@ class ValidaUsuario extends StatelessWidget {
             if (usuario == null) {
               return AutenticacaoPage.create(context);
             }
-            return HomePage();
+            //return ProfiPage();
+            return Provider<BancoDeDados>(
+              create: (_) => FirestoreDatabase(usuarioId: usuario.uid),
+                child: EstadoPage(),
+            );
           } else {
             return Scaffold(
               body: Center(

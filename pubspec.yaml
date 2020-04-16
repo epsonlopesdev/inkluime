@@ -28,6 +28,7 @@ dependencies:
   google_sign_in: ^4.0.7
   flutter_facebook_login: ^3.0.0
   provider: ^3.1.0+1
+  #cloud_firestore: ^0.12.9+5
 
 dev_dependencies:
   flutter_test:
@@ -51,8 +52,8 @@ flutter:
   assets:
     - lib/assets/imagem/facebook-logo.png
     - lib/assets/imagem/google-logo.png
-    - lib/assets/imagem/inkluime-logo.png
-    - lib/assets/imagem/inkluime-logo-only.png
+    - lib/assets/imagem/akolhe-logo.png
+    - lib/assets/imagem/akolhe-logo-only.png
     - lib/assets/imagem/email-send.png
     - lib/assets/imagem/email.png
     - lib/assets/imagem/spy.png

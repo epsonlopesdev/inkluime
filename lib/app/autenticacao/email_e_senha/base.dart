@@ -15,7 +15,7 @@ class EmailESenhaFormBlocBase extends StatefulWidget {
   static Widget create(BuildContext context) {
     final AutorizacaoBase autorizacao = Provider.of<AutorizacaoBase>(context);
     return Provider<ComEmailESenhaBloc>(
-      builder: (context) => ComEmailESenhaBloc(autorizacao: autorizacao),
+      create: (context) => ComEmailESenhaBloc(autorizacao: autorizacao),
       child: Consumer<ComEmailESenhaBloc>(
         builder: (context, bloc, _) => EmailESenhaFormBlocBase(bloc: bloc),
       ),

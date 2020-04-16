@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
         leading: Padding(
           padding: EdgeInsets.only(left: 16),
           child: Image.asset(
-            'lib/assets/imagem/inkluime-logo-only.png',
+            'lib/assets/imagem/akolhe-logo-only.png',
             height: 40.0,
           ),
         ),

@@ -5,14 +5,14 @@ import 'package:provider/provider.dart';
 
 
 void main() {
-  runApp(Inkluime());
+  runApp(Akolhe());
 }
 
-class Inkluime extends StatelessWidget {
+class Akolhe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider<AutorizacaoBase>(
-      builder: (context) => Autorizacao(),
+      create: (context) => Autorizacao(),
       child: MaterialApp(
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,

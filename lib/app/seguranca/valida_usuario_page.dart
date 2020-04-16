@@ -14,7 +14,7 @@ class ValidaUsuario extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.active) {
             Usuario usuario = snapshot.data;
             if (usuario == null) {
-              return Page.create(context);
+              return AutenticacaoPage.create(context);
             }
             return HomePage();
           } else {

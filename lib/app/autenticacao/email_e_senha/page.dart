@@ -1,4 +1,3 @@
-import 'package:app/app/autenticacao/email_e_senha/base.dart';
 import 'package:flutter/material.dart';
 import 'notifier.dart';
 

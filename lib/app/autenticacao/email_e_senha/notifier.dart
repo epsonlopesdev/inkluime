@@ -1,11 +1,9 @@
-import 'package:app/app/autenticacao/email_e_senha/bloc.dart';
 import 'package:app/app/servicos/autorizacao.dart';
 import 'package:app/custom_widget/submit_button.dart';
 import 'package:app/custom_widget/platform_exception_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'model.dart';
 import 'notifier_model.dart';
 
 class EmailESenhaFormNotifier extends StatefulWidget {
@@ -15,7 +13,7 @@ class EmailESenhaFormNotifier extends StatefulWidget {
   static Widget create(BuildContext context) {
     final AutorizacaoBase autorizacao = Provider.of<AutorizacaoBase>(context);
     return ChangeNotifierProvider<EmailESennhaNotifierModel>(
-      builder: (context) => EmailESennhaNotifierModel(autorizacao: autorizacao),
+      create: (context) => EmailESennhaNotifierModel(autorizacao: autorizacao),
       child: Consumer<EmailESennhaNotifierModel>(
         builder: (context, model, _) => EmailESenhaFormNotifier(model: model),
       ),

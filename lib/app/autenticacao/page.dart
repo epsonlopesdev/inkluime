@@ -7,20 +7,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-class Page extends StatelessWidget {
-  const Page({Key key, @required this.manager, @required this.carregando}) : super (key: key);
+class AutenticacaoPage extends StatelessWidget {
+  const AutenticacaoPage({Key key, @required this.manager, @required this.carregando}) : super (key: key);
   final Manager manager;
   final bool carregando;
 
   static Widget create(BuildContext context) {
     final autorizacao = Provider.of<AutorizacaoBase>(context);
     return ChangeNotifierProvider<ValueNotifier<bool>>(
-      builder: (_) => ValueNotifier<bool>(false),
+      create: (_) => ValueNotifier<bool>(false),
       child: Consumer<ValueNotifier<bool>>(
         builder: (_, carregando, __) => Provider<Manager>(
-          builder: (_) => Manager(autorizacao: autorizacao, carregando: carregando),
+          create: (_) => Manager(autorizacao: autorizacao, carregando: carregando),
           child: Consumer<Manager>(
-            builder: (context, manager, _) => Page(
+            builder: (context, manager, _) => AutenticacaoPage(
               manager: manager,
               carregando: carregando.value,
             ),
@@ -79,7 +79,7 @@ class Page extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
-          'lib/assets/imagem/inkluime-logo.png',
+          'lib/assets/imagem/akolhe-logo.png',
           height: 40.0,
         ),
         elevation: 2.0,

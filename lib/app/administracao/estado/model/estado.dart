@@ -1,33 +1,38 @@
 import 'package:flutter/foundation.dart';
 
 class Estado {
-  Estado({@required this.nome, @required this.uf, @ required this.ativo});
+  Estado(
+      {@required this.estadoId,
+      @required this.nomeDoEstado,
+      @required this.unidadeFedarativa,
+      @required this.estadoAtivo});
 
-  final String nome;
-  final String uf;
-  final bool ativo;
+  final String estadoId;
+  final String nomeDoEstado;
+  final String unidadeFedarativa;
+  final bool estadoAtivo;
 
-  factory Estado.fromMap(Map<String, dynamic> dados) {
+  factory Estado.fromMap(Map<String, dynamic> dados, String estadoId) {
     if (dados == null) {
       return null;
     }
-    final String nome = dados['nome'];
-    final String uf = dados['uf'];
-    final bool ativo = dados['ativo'];
-    return Estado (
-      nome: nome,
-      uf: uf,
-      ativo: ativo,
+
+    final String nomeDoEstado = dados['nomeDoEstado'];
+    final String unidadeFedarativa = dados['unidadeFedarativa'];
+    final bool estadoAtivo = dados['estadoAtivo'];
+    return Estado(
+      estadoId: estadoId,
+      nomeDoEstado: nomeDoEstado,
+      unidadeFedarativa: unidadeFedarativa,
+      estadoAtivo: estadoAtivo,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'nome': nome,
-      'uf': uf,
-      'ativo': ativo,
+      'nomeDoEstado': nomeDoEstado,
+      'unidadeFedarativa': unidadeFedarativa,
+      'estadoAtivo': estadoAtivo,
     };
   }
-
-
 }

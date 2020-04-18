@@ -1,14 +1,13 @@
+import 'package:app/app/administracao/estado/estado_page.dart';
+import 'package:app/app/administracao/estado/lista_tile.dart';
 import 'package:app/app/servicos/autorizacao.dart';
 import 'package:app/app/servicos/banco_de_dados.dart';
 import 'package:app/custom_widget/platform_alert_dialog.dart';
-import 'package:app/custom_widget/platform_exception_alert_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'model/estado.dart';
 
-class EstadoPage extends StatelessWidget {
-
+class VisualizaEstadoPage extends StatelessWidget {
   Future<void> _encerraSessao(BuildContext context) async {
     try {
       final autenticacao = Provider.of<AutorizacaoBase>(context);
@@ -27,19 +26,6 @@ class EstadoPage extends StatelessWidget {
     ).show(context);
     if (encerramentoDaSessao == true) {
       _encerraSessao(context);
-    }
-  }
-
-  Future<void> _cadastraEstado(BuildContext context) async {
-    try {
-      final bancoDeDados = Provider.of<BancoDeDados>(context);
-      await bancoDeDados.cadastraEstado(
-          Estado(nome: 'Alagoas', uf: 'AL', ativo: true));
-    } on PlatformException catch (e) {
-      PlatformExceptionAlertDialog(
-        title: 'Ops! alguma coisa deu errado... :(',
-        exception: e,
-      ).show(context);
     }
   }
 
@@ -69,30 +55,32 @@ class EstadoPage extends StatelessWidget {
       body: _buildConteudo(context),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => _cadastraEstado(context),
+        onPressed: () => EstadoPage.exibir(context),
       ),
     );
   }
 
   Widget _buildConteudo(BuildContext context) {
-
     final bancoDeDados = Provider.of<BancoDeDados>(context);
     return StreamBuilder<List<Estado>>(
       stream: bancoDeDados.estadosStream(),
       builder: (context, instantaneo) {
         if (instantaneo.hasData) {
           final estados = instantaneo.data;
-          final children = estados.map((estado) => Text(estado.nome)).toList();
+          final children = estados
+              .map((estado) => ListaTileDeEstado(
+                    estado: estado,
+                    aoClicar: () => EstadoPage.exibir(context, estado: estado),
+                  ))
+              .toList();
           return ListView(children: children);
         }
         if (instantaneo.hasError) {
-          return Center(child: Text('Parece que alguma coisa deu errado.... :('));
+          return Center(
+              child: Text('Parece que alguma coisa deu errado.... :('));
         }
         return Center(child: CircularProgressIndicator());
       },
     );
   }
-
 }
-
-

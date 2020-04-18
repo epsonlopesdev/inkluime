@@ -1,4 +1,4 @@
-import 'package:app/app/administracao/estado/page.dart';
+import 'package:app/app/administracao/estado/visualiza_page.dart';
 import 'package:app/app/autenticacao/page.dart';
 import 'package:app/app/servicos/autorizacao.dart';
 import 'package:app/app/servicos/banco_de_dados.dart';
@@ -20,7 +20,7 @@ class ValidaUsuario extends StatelessWidget {
             //return ProfiPage();
             return Provider<BancoDeDados>(
               create: (_) => FirestoreDatabase(usuarioId: usuario.uid),
-                child: EstadoPage(),
+                child: VisualizaEstadoPage(),
             );
           } else {
             return Scaffold(

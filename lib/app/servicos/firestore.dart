@@ -6,14 +6,20 @@ class ServicoDoFirestore {
 
   static final instance = ServicoDoFirestore._();
 
-  Future<void> gravaDados({String caminho, Map<String, dynamic> dados}) async {
+  Future<void> gravaDados(
+      {@required String caminho, @required Map<String, dynamic> dados}) async {
     final referencia = Firestore.instance.document(caminho);
     await referencia.setData(dados);
   }
 
+  Future<void> apagaDados(
+      {@required String caminho}) async {
+    final referencia = Firestore.instance.document(caminho);
+    await referencia.delete();
+  }
+
   Stream<List<T>> colecaoStream<T>({
-    @required String caminho,
-    @required T construtor(Map<String, dynamic> dados, String estadoId),
+    @required String caminho, @required T construtor(Map<String, dynamic> dados, String estadoId),
   }) {
     final referencia = Firestore.instance.collection(caminho);
     final instantaneos = referencia.snapshots();

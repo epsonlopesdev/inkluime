@@ -4,7 +4,6 @@ import 'package:app/custom_widget/platform_exception_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
 import 'model/estado.dart';
 
 class EstadoPage extends StatefulWidget {
@@ -39,8 +38,6 @@ class _EstadoPageState extends State<EstadoPage> {
     if (widget.estado != null) {
       _nomeDoEstado = widget.estado.nomeDoEstado;
       _unidadeFederativa = widget.estado.unidadeFedarativa;
-      print('Estado: $_nomeDoEstado');
-      print('UF: $_unidadeFederativa');
     }
   }
 

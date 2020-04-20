@@ -1,9 +1,11 @@
 import 'package:app/app/administracao/estado/estado_page.dart';
+import 'package:app/app/administracao/estado/lista_de_itens_builder.dart';
 import 'package:app/app/administracao/estado/lista_tile.dart';
 import 'package:app/app/servicos/autorizacao.dart';
 import 'package:app/app/servicos/banco_de_dados.dart';
 import 'package:app/custom_widget/platform_alert_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'model/estado.dart';
 
@@ -26,6 +28,19 @@ class VisualizaEstadoPage extends StatelessWidget {
     ).show(context);
     if (encerramentoDaSessao == true) {
       _encerraSessao(context);
+    }
+  }
+
+  Future<void> _exclui(BuildContext context, Estado estado) async {
+    try{
+      final bancoDeDados = Provider.of<BancoDeDados>(context);
+      await bancoDeDados.excluiEstado(estado);
+    } on PlatformException catch (e) {
+      PlatformAlertDialog(
+        title: 'Algo deu errado... :(',
+        content: 'Não foi possivel excluir o estado.',
+        defaultActionText: 'Fechar',
+      ).show(context);
     }
   }
 
@@ -65,22 +80,21 @@ class VisualizaEstadoPage extends StatelessWidget {
     return StreamBuilder<List<Estado>>(
       stream: bancoDeDados.estadosStream(),
       builder: (context, instantaneo) {
-        if (instantaneo.hasData) {
-          final estados = instantaneo.data;
-          final children = estados
-              .map((estado) => ListaTileDeEstado(
+        return ListItemsBuilder<Estado>(
+            snapshot: instantaneo,
+            itemBuilder: (context, estado) => Dismissible(
+              background: Container(color: Colors.red,),
+              direction: DismissDirection.endToStart,
+              onDismissed: (direction) => _exclui(context, estado),
+              key: Key('estado-${estado.estadoId}'),
+              child: ListaTileDeEstado(
                     estado: estado,
                     aoClicar: () => EstadoPage.exibir(context, estado: estado),
-                  ))
-              .toList();
-          return ListView(children: children);
-        }
-        if (instantaneo.hasError) {
-          return Center(
-              child: Text('Parece que alguma coisa deu errado.... :('));
-        }
-        return Center(child: CircularProgressIndicator());
+                  ),
+            ),
+        );
       },
     );
   }
+
 }

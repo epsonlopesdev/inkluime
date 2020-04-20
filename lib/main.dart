@@ -14,6 +14,7 @@ class Akolhe extends StatelessWidget {
     return Provider<AutorizacaoBase>(
       create: (context) => Autorizacao(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
         ),

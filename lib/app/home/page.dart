@@ -77,108 +77,151 @@ class HomePage extends StatelessWidget {
             accountEmail: Text('epson@outlook.com'),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.all(5.0),
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: Colors.purple,
+                  ),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.chrome_reader_mode,
+                      color: Colors.white,
+                      size: 40.0,
+                    ),
+                    title: Text(
+                      'Meus dados',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.0,),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: Colors.black,
+                  ),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.collections_bookmark,
+                      size: 40.0,
+                      color: Colors.white,
+                    ),
+                    title: Text(
+                      'Minhas notícias',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.0,),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: Colors.pink,
+                  ),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.message,
+                      color: Colors.white,
+                      size: 40.0,
+                    ),
+                    title: Text(
+                      'Minhas indicações',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.0,),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: Colors.orange,
+                  ),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.folder,
+                      color: Colors.white,
+                      size: 40.0,
+                    ),
+                    title: Text(
+                      'Meus processos',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.0,),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: Colors.green,
+                  ),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.local_offer,
+                      color: Colors.white,
+                      size: 40.0,
+                    ),
+                    title: Text(
+                      'Meus anuncios',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.0,),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: Colors.blueGrey,
+                  ),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.settings,
+                      color: Colors.white,
+                      size: 40.0,
+                    ),
+                    title: Text(
+                      'Configurações',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-          ListTile(
-            leading: Icon(
-              Icons.chrome_reader_mode,
-              color: Colors.purple,
-              size: 40.0,
-            ),
-            title: Text(
-              'Meus dados',
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.purple,
-              ),
-            ),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.collections_bookmark,
-              size: 40.0,
-              color: Colors.black,
-            ),
-            title: Text(
-              'Minhas notícias',
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.black,
-              ),
-            ),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.message,
-              color: Colors.pink,
-              size: 40.0,
-            ),
-            title: Text(
-              'Minhas indicações',
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.pink,
-              ),
-            ),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.folder,
-              color: Colors.orangeAccent,
-              size: 40.0,
-            ),
-            title: Text(
-              'Meus processos',
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.orangeAccent,
-              ),
-            ),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.local_offer,
-              color: Colors.green,
-              size: 40.0,
-            ),
-            title: Text(
-              'Meus anuncios',
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.green,
-              ),
-            ),
-          ),
-          SizedBox(height: 50.0,),
-          Divider(thickness: 1.0,),
           Expanded(
             child: Align(
               alignment: FractionalOffset.bottomCenter,
               child: ListTile(
                 leading: Icon(
-                  Icons.settings,
-                  color: Colors.blueGrey,
+                  Icons.subdirectory_arrow_left,
+                  color: Colors.red,
                   size: 40.0,
                 ),
                 title: Text(
-                  'Confirgurações',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    color: Colors.blueGrey,
-                  ),
+                  'Sair',
+                  style: TextStyle(fontSize: 18.0, color: Colors.red),
                 ),
               ),
-            ),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.subdirectory_arrow_left,
-              color: Colors.red,
-              size: 40.0,
-            ),
-            title: Text(
-              'Sair',
-              style: TextStyle(fontSize: 18.0, color: Colors.red),
             ),
           ),
         ],

@@ -27,28 +27,29 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
     return Scaffold(
+      key: _drawerKey,
       appBar: AppBar(
-        /*leading: Padding(
-          padding: EdgeInsets.only(left: 16),
-          child: Image.asset(
-            'lib/assets/imagem/akolhe-logo-only.png',
-            height: 40.0,
-          ),
-        ),*/
-        title: Text('Seja bem vindo!'),
+        title: Image.asset(
+          'lib/assets/imagem/akolhe-logo.png',
+          height: 40.0,
+        ),
+
+
         actions: <Widget>[
-          FlatButton(
-            child: Text('Sair',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Colors.white,
-                )),
-            onPressed: () => _confirmaEncerraSessao(context),
-          )
+          IconButton(
+            icon: const Icon(Icons.account_circle, size: 35,),
+            tooltip: 'Área do Cliente',
+            onPressed: () {
+              _drawerKey.currentState.openEndDrawer();
+            },
+          ),
         ],
+
+
       ),
-      drawer: _menuLateral(),
+      endDrawer: _menuLateral(context),
       body: _conteudo(context),
     );
   }
@@ -59,7 +60,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _menuLateral() {
+  Widget _menuLateral(BuildContext context) {
     return Drawer(
       child: Column(
         children: [
@@ -212,6 +213,7 @@ class HomePage extends StatelessWidget {
             child: Align(
               alignment: FractionalOffset.bottomCenter,
               child: ListTile(
+                onTap: () => _confirmaEncerraSessao(context),
                 leading: Icon(
                   Icons.subdirectory_arrow_left,
                   color: Colors.red,
